@@ -1,1 +1,611 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=1">
 
+    <title>Math Archive | Hoang Long</title>
+
+    <style>
+        /* ================= THEME VARIABLES ================= */
+
+        :root{
+            --bg-color: #f4f7ff;
+            --bg-gradient: linear-gradient(135deg,#eef4ff,#dce9ff);
+
+            --header-bg: rgba(255,255,255,0.88);
+
+            --primary-blue: #1e4db7;
+            --soft-blue: #e4eeff;
+
+            --card-bg: rgba(255,255,255,0.95);
+
+            --text-dark: #22314d;
+            --text-light: #5f6f89;
+
+            --accent: #6a5acd;
+
+            --border: #dbe5ff;
+        }
+
+        [data-theme="dark"]{
+            --bg-color: #0b1220;
+            --bg-gradient: linear-gradient(135deg,#0b1220,#111c34);
+
+            --header-bg: rgba(10,16,30,0.92);
+
+            --primary-blue: #79a8ff;
+            --soft-blue: #172742;
+
+            --card-bg: rgba(18,28,50,0.92);
+
+            --text-dark: #edf4ff;
+            --text-light: #a6bddf;
+
+            --accent: #9b8cff;
+
+            --border: #263b66;
+        }
+
+        /* ================= GLOBAL ================= */
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            transition:
+                background-color 0.3s ease,
+                color 0.3s ease,
+                border-color 0.3s ease,
+                transform 0.3s ease;
+        }
+
+        body{
+            font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            min-height:100vh;
+            overflow-x:hidden;
+        }
+
+        body::before{
+            content:"";
+            position:fixed;
+            inset:0;
+            background-image:
+                radial-gradient(circle at 20% 20%, rgba(255,255,255,0.14) 1px, transparent 1px),
+                radial-gradient(circle at 80% 40%, rgba(255,255,255,0.12) 1px, transparent 1px);
+            background-size:35px 35px;
+            pointer-events:none;
+            z-index:-1;
+        }
+
+        /* ================= HEADER ================= */
+
+        header{
+            position:sticky;
+            top:0;
+            z-index:100;
+
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+
+            padding:16px 5%;
+
+            background:var(--header-bg);
+            backdrop-filter:blur(14px);
+
+            border-bottom:2px solid var(--primary-blue);
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:14px;
+
+            font-size:1.6rem;
+            font-weight:800;
+
+            color:var(--primary-blue);
+
+            letter-spacing:1px;
+        }
+
+        .logo-img{
+            width:72px;
+            height:72px;
+
+            object-fit:cover;
+
+            border-radius:18px;
+
+            background:white;
+
+            padding:5px;
+
+            border:2px solid rgba(121,168,255,0.25);
+
+            box-shadow:0 4px 14px rgba(0,0,0,0.12);
+        }
+
+        .logo-img:hover{
+            transform:scale(1.08) rotate(-4deg);
+
+            box-shadow:
+                0 8px 24px rgba(0,0,0,0.22),
+                0 0 35px rgba(121,168,255,0.45);
+        }
+
+        .theme-switch{
+            border:none;
+            cursor:pointer;
+
+            display:flex;
+            align-items:center;
+            gap:10px;
+
+            padding:10px 18px;
+
+            border-radius:999px;
+
+            background:var(--soft-blue);
+
+            color:var(--primary-blue);
+
+            font-weight:700;
+
+            border:2px solid var(--primary-blue);
+        }
+
+        .theme-switch:hover{
+            transform:translateY(-2px);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero{
+            text-align:center;
+            padding:70px 5% 30px;
+        }
+
+        .hero h1{
+            font-size:3.4rem;
+            color:var(--primary-blue);
+
+            margin-bottom:10px;
+
+            font-family:'Georgia',serif;
+        }
+
+        .hero p{
+            color:var(--text-light);
+            font-size:1.05rem;
+        }
+
+        .search-container{
+            max-width:650px;
+            margin:30px auto;
+        }
+
+        .search-box{
+            width:100%;
+
+            padding:17px 24px;
+
+            border-radius:999px;
+
+            border:2px solid var(--border);
+
+            background:var(--card-bg);
+
+            color:var(--text-dark);
+
+            outline:none;
+
+            font-size:1rem;
+
+            box-shadow:0 5px 18px rgba(0,0,0,0.05);
+        }
+
+        .search-box:focus{
+            border-color:var(--primary-blue);
+            box-shadow:0 0 0 5px rgba(121,168,255,0.15);
+        }
+
+        /* ================= MAIN ================= */
+
+        main{
+            max-width:1350px;
+            margin:auto;
+
+            padding:10px 5% 80px;
+        }
+
+        .cards-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(auto-fill,minmax(300px,1fr));
+
+            gap:24px;
+        }
+
+        .math-card{
+            text-decoration:none;
+            color:inherit;
+
+            background:var(--card-bg);
+
+            border:1px solid var(--border);
+
+            border-radius:22px;
+
+            padding:24px;
+
+            display:flex;
+            flex-direction:column;
+
+            overflow:hidden;
+
+            position:relative;
+
+            backdrop-filter:blur(10px);
+
+            box-shadow:0 10px 25px rgba(0,0,0,0.06);
+        }
+
+        .math-card::before{
+            content:"";
+
+            position:absolute;
+            inset:0;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(121,168,255,0.12),
+                    transparent
+                );
+
+            opacity:0;
+
+            transition:0.4s ease;
+        }
+
+        .math-card:hover::before{
+            opacity:1;
+        }
+
+        .math-card:hover{
+            transform:
+                translateY(-8px)
+                scale(1.02);
+
+            border-color:var(--primary-blue);
+
+            box-shadow:
+                0 16px 36px rgba(0,0,0,0.12),
+                0 0 20px rgba(121,168,255,0.18);
+        }
+
+        .card-emoji{
+            font-size:2.3rem;
+            margin-bottom:16px;
+        }
+
+        .card-title{
+            font-size:1rem;
+            font-weight:800;
+
+            color:var(--primary-blue);
+
+            margin-bottom:10px;
+
+            text-transform:uppercase;
+        }
+
+        .card-desc{
+            font-size:0.9rem;
+
+            color:var(--text-light);
+
+            flex-grow:1;
+
+            margin-bottom:18px;
+        }
+
+        .card-meta{
+            padding-top:14px;
+
+            border-top:1px solid var(--border);
+
+            color:var(--accent);
+
+            font-size:0.85rem;
+
+            font-weight:700;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer{
+            text-align:center;
+
+            padding:45px 20px;
+
+            background:rgba(255,255,255,0.08);
+
+            border-top:1px solid var(--border);
+        }
+
+        footer p{
+            color:var(--text-light);
+        }
+
+        .author{
+            display:block;
+
+            margin-top:10px;
+
+            color:var(--primary-blue);
+
+            font-weight:800;
+
+            font-size:1.1rem;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media(max-width:768px){
+
+            .hero h1{
+                font-size:2.4rem;
+            }
+
+            header{
+                flex-direction:column;
+                gap:16px;
+            }
+
+            .logo{
+                font-size:1.3rem;
+            }
+
+            .logo-img{
+                width:64px;
+                height:64px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        <img src="images/logo-math.png" alt="Math Logo" class="logo-img">
+        <span>Math Archive</span>
+    </div>
+
+    <button class="theme-switch" id="theme-toggle">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-text">Chế độ tối</span>
+    </button>
+
+</header>
+
+<section class="hero">
+
+    <h1>Toán 9 ✨</h1>
+
+    <p>Kho tài liệu học tập – ôn thi – luyện đề môn Toán lớp 9</p>
+
+    <div class="search-container">
+        <input
+            type="text"
+            class="search-box"
+            id="search-input"
+            placeholder="Tìm kiếm tài liệu Toán 9... 🔍"
+        >
+    </div>
+
+</section>
+
+<main>
+
+    <div class="cards-grid" id="cards-container"></div>
+
+</main>
+
+<footer>
+
+    <p>Mục tiêu hướng tới: Chinh phục kỳ thi vào 10 📐</p>
+
+    <span class="author">
+        Created by Nguyễn Hoàng Long 🔥
+    </span>
+
+</footer>
+
+<script>
+
+    const cardData = [
+
+        {
+            emoji:"📘",
+            title:"SÁCH TOÁN 9 TẬP 1 KNTT",
+            url:"https://thcs.toanmath.com/2023/12/sach-giao-khoa-toan-9-tap-1-ket-noi-tri-thuc-voi-cuoc-song.html",
+            desc:"Sách giáo khoa Toán 9 tập 1 theo chương trình Kết nối tri thức."
+        },
+
+        {
+            emoji:"📗",
+            title:"SÁCH TOÁN 9 TẬP 2 KNTT",
+            url:"https://thcs.toanmath.com/2023/12/sach-giao-khoa-toan-9-tap-2-ket-noi-tri-thuc-voi-cuoc-song.html",
+            desc:"Sách giáo khoa Toán 9 tập 2 đầy đủ nội dung mới."
+        },
+
+        {
+            emoji:"🧠",
+            title:"TỰ HỌC TOÁN 9 (VER1)",
+            url:"https://thcs.toanmath.com/2019/12/tai-lieu-tu-hoc-toan-9-nguyen-chin-em-tap-1.html",
+            desc:"Tài liệu tự học giúp củng cố nền tảng và luyện kỹ năng."
+        },
+
+        {
+            emoji:"📚",
+            title:"TỰ HỌC TOÁN 9 (VER2)",
+            url:"https://tailieumontoan.com/download-tai-lieu-tu-hoc-mon-toan-lop-9-3092/",
+            desc:"Phiên bản bổ sung nhiều dạng bài và phương pháp giải."
+        },
+
+        {
+            emoji:"✏️",
+            title:"SÁCH BÀI TẬP TOÁN 9 (VER1)",
+            url:"https://tailieumontoan.com/download-bai-tap-toan-lop-9-tap-1-1534/",
+            desc:"Tổng hợp bài tập Toán 9 theo từng chuyên đề."
+        },
+
+        {
+            emoji:"📝",
+            title:"SÁCH BÀI TẬP TOÁN 9 (VER2)",
+            url:"https://thcs.toanmath.com/2024/07/cac-dang-bai-tap-mon-toan-9-ket-noi-tri-thuc-voi-cuoc-song.html",
+            desc:"Các dạng bài tập nâng cao theo chương trình KNTT."
+        },
+
+        {
+            emoji:"📊",
+            title:"CÁC ĐỀ GHK1 TOÁN 9",
+            url:"https://thcs.toanmath.com/de-thi-giua-hk1-toan-9",
+            desc:"Kho đề kiểm tra giữa học kỳ 1 môn Toán lớp 9."
+        },
+
+        {
+            emoji:"🏆",
+            title:"CÁC ĐỀ CHK1 TOÁN 9",
+            url:"https://thcs.toanmath.com/de-thi-hk1-toan-9",
+            desc:"Tổng hợp đề thi cuối học kỳ 1 môn Toán lớp 9."
+        },
+
+        {
+            emoji:"📐",
+            title:"CÁC ĐỀ GHK2 TOÁN 9",
+            url:"https://thcs.toanmath.com/de-thi-giua-hk2-toan-9",
+            desc:"Luyện đề giữa học kỳ 2 với nhiều trường khác nhau."
+        },
+
+        {
+            emoji:"🎯",
+            title:"CÁC ĐỀ CHK2 TOÁN 9",
+            url:"https://thcs.toanmath.com/de-thi-hk2-toan-9",
+            desc:"Bộ đề cuối kỳ 2 giúp luyện tập trước kỳ thi."
+        },
+
+        {
+            emoji:"🚀",
+            title:"100 ĐỀ MINH HOẠ ÔN THI VÀO 10",
+            url:"https://drive.google.com/drive/folders/1279yJPNo5SpDHGXkkj1NaF8YwrU_N06e?fbclid=IwY2xjawRut6hleHRuA2FlbQIxMABicmlkETFSM3lhVjZmWU9WRWxLZG9zc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHglRHmEvg8kz4Jt9Zq7hLd_LIP_eqEoieqcDcCyeiBEdJ0ygY5z3Y1ZiI6BA_aem_meiNzW6oUEy6q11-_zbmiQ",
+            desc:"Kho 100 đề minh hoạ luyện thi vào lớp 10 môn Toán."
+        }
+
+    ];
+
+    const container = document.getElementById('cards-container');
+
+    cardData.forEach(data => {
+
+        const card = document.createElement('a');
+
+        card.href = data.url;
+        card.target = "_blank";
+
+        card.className = "math-card";
+
+        card.innerHTML = `
+            <span class="card-emoji">${data.emoji}</span>
+
+            <div class="card-title">
+                ${data.title}
+            </div>
+
+            <div class="card-desc">
+                ${data.desc}
+            </div>
+
+            <div class="card-meta">
+                Mở tài liệu ngay ➜
+            </div>
+        `;
+
+        container.appendChild(card);
+
+    });
+
+    // ================= THEME TOGGLE =================
+
+    const toggleBtn = document.getElementById('theme-toggle');
+
+    const themeIcon = document.getElementById('theme-icon');
+
+    const themeText = document.getElementById('theme-text');
+
+    toggleBtn.addEventListener('click', () => {
+
+        let theme =
+            document.documentElement.getAttribute('data-theme');
+
+        if(theme === 'dark'){
+
+            document.documentElement.removeAttribute('data-theme');
+
+            themeIcon.innerText = '🌙';
+
+            themeText.innerText = 'Chế độ tối';
+
+        }else{
+
+            document.documentElement.setAttribute(
+                'data-theme',
+                'dark'
+            );
+
+            themeIcon.innerText = '☀️';
+
+            themeText.innerText = 'Chế độ sáng';
+        }
+
+    });
+
+    // ================= SEARCH =================
+
+    document
+        .getElementById('search-input')
+        .addEventListener('input', (e) => {
+
+            const term =
+                e.target.value.toLowerCase();
+
+            document
+                .querySelectorAll('.math-card')
+                .forEach(card => {
+
+                    card.style.display =
+                        card.textContent
+                            .toLowerCase()
+                            .includes(term)
+
+                            ? 'flex'
+                            : 'none';
+
+                });
+
+        });
+
+</script>
+
+</body>
+</html>
