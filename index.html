@@ -82,6 +82,12 @@
             border: 2px solid var(--primary-blue);
         }
 
+        /* Group chứa 2 nút */
+        .header-actions {
+            display: flex;
+            gap: 10px; /* Khoảng cách giữa 2 nút */
+        }
+
         .theme-switch {
             background: var(--soft-blue);
             border: 2px solid var(--primary-blue);
@@ -93,6 +99,14 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            text-decoration: none; /* Bỏ gạch chân cho link báo lỗi */
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .theme-switch:hover {
+            opacity: 0.8;
+            transform: translateY(-2px);
         }
 
         /* ================= HERO & SEARCH ================= */
@@ -149,10 +163,17 @@
         <span>Toán 9 - Ôn Thi Vào 10</span>
     </div>
 
-    <button class="theme-switch" id="theme-toggle">
-        <span id="theme-icon">🌙</span>
-        <span id="theme-text">Chế độ tối</span>
-    </button>
+    <div class="header-actions">
+        <a href="https://forms.gle/3EFuhxNX2c9X64mt5" target="_blank" class="theme-switch">
+            <span>⚠️</span>
+            <span>Báo Lỗi</span>
+        </a>
+
+        <button class="theme-switch" id="theme-toggle">
+            <span id="theme-icon">🌙</span>
+            <span id="theme-text">Chế độ tối</span>
+        </button>
+    </div>
 </header>
 
     <section class="hero">
