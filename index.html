@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=1">
     <title>Toán 9 | Ôn Thi Vào 10</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         /* ================= THEME VARIABLES (MATH BLUE EDITION) ================= */
         :root {
@@ -17,6 +22,7 @@
             --text-light: #64748b;
             --accent-math: #ef4444; 
             --border: #e2e8f0;
+            --font-main: 'Be Vietnam Pro', system-ui, -apple-system, sans-serif;
         }
 
         [data-theme="dark"] {
@@ -45,7 +51,7 @@
                               linear-gradient(90deg, var(--soft-blue) 1px, transparent 1px);
             background-size: 40px 40px;
             color: var(--text-dark);
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-family: var(--font-main);
             line-height: 1.6;
         }
 
@@ -69,7 +75,7 @@
             display: flex;
             align-items: center;
             gap: 14px;
-            font-family: 'Cambria', serif;
+            font-family: var(--font-main);
         }
 
         .logo-img {
@@ -82,10 +88,9 @@
             border: 2px solid var(--primary-blue);
         }
 
-        /* Group chứa 2 nút */
         .header-actions {
             display: flex;
-            gap: 10px; /* Khoảng cách giữa 2 nút */
+            gap: 10px;
         }
 
         .theme-switch {
@@ -99,8 +104,9 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            text-decoration: none; /* Bỏ gạch chân cho link báo lỗi */
+            text-decoration: none;
             font-size: 14px;
+            font-family: var(--font-main);
             white-space: nowrap;
         }
 
@@ -111,13 +117,21 @@
 
         /* ================= HERO & SEARCH ================= */
         .hero { padding: 40px 5% 20px; text-align: center; }
-        .hero h1 { font-size: 2.8rem; color: var(--primary-blue); margin-bottom: 10px; font-family: 'Cambria', serif; }
+        .hero h1 { 
+            font-size: 2.8rem; 
+            color: var(--primary-blue); 
+            margin-bottom: 10px; 
+            font-family: var(--font-main);
+            font-weight: 800;
+            line-height: 1.2;
+        }
         
         .search-container { max-width: 600px; margin: 20px auto; }
         .search-box {
             width: 100%; padding: 15px 25px; border: 2px solid var(--border);
             border-radius: 12px; background: var(--card-bg); color: var(--text-dark); outline: none;
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            font-family: var(--font-main);
         }
 
         /* ================= CARDS GRID ================= */
@@ -206,7 +220,7 @@
             { emoji: "📏", title: "Các Đề CHK1 Toán 9", url: "https://thcs.toanmath.com/de-thi-hk1-toan-9", desc: "Bộ sưu tập đề thi cuối học kỳ 1 chọn lọc." },
             { emoji: "📐", title: "Các Đề GHK2 Toán 9", url: "https://thcs.toanmath.com/de-thi-giua-hk2-toan-9", desc: "Tổng hợp các đề thi giữa học kỳ 2 cập nhật mới." },
             { emoji: "📏", title: "Các Đề CHK2 Toán 9", url: "https://thcs.toanmath.com/de-thi-hk2-toan-9", desc: "Bộ sưu tập đề thi cuối học kỳ 2 (Ôn thi học kỳ)." },
-            { emoji: "🎓", title: "100 Đề Minh Hoạ Vào 10", url: "https://drive.google.com/drive/folders/1279yJPNo5SpDHGXkkj1NaF8YwrU_N06e?fbclid=IwY2xjawRut6hleHRuA2FlbQIxMABicmlkETFSM3lhVjZmWU9WRWxLZG9zc3J0YwZhcHBfaWQQMjIyMDM5MTc4ODIwMDg5MgABHglRHmEvg8kz4Jt9Zq7hLd_LIP_eqEoieqcDcCyeiBEdJ0ygY5z3Y1ZiI6BA_aem_meiNzW6oUEy6q11-_zbmiQ", desc: "Kho dữ liệu 100 đề minh hoạ ôn thi tuyển sinh lớp 10 cực lớn." }
+            { emoji: "🎓", title: "100 Đề Minh Hoạ Vào 10", url: "https://drive.google.com/drive/folders/1279yJPNo5SpDHGXkkj1NaF8YwrU_N06e", desc: "Kho dữ liệu 100 đề minh hoạ ôn thi tuyển sinh lớp 10 cực lớn." }
         ];
 
         const container = document.getElementById('cards-container');
